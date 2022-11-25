@@ -10,6 +10,9 @@ import {
   Table
 } from 'react-bootstrap'
 
+//Components
+import Dates from './Dates'
+
 //Images
 import arrowLeft from '../assets/image/arrow_left.png'
 import arrowRight from '../assets/image/arrow_right.png'
@@ -33,54 +36,6 @@ const DatePicker = (props) => {
 
     getData()
   }, [selection])
-
-  const Dates = () => {
-    return (
-      <Table className="h-100">
-        <thead className="border-0 m-0 p-0">
-          <tr>
-            <th className="border-0" style={{ width: '12.5%', height: '5%' }}></th>
-            {
-              getDayNames().map((day, index) => {
-                return <th key={index} className="text-center text-capitalize border-0" style={{ width: '12.5%' }}>{day}</th>
-              })
-            }
-          </tr>
-        </thead>
-        <tbody className="border border-0 m-0 p-0">
-          {
-            data && data.map((row, rowIndex) => {
-              return (
-                <tr key={rowIndex} className="m-0 p-0">
-                  {
-                    row.map((entry, colIndex) => {
-                      return (
-                        <td
-                          className={`
-                          border-0 
-                            text-center
-                            align-middle
-                            ${entry.isLast || entry.isNext ? 'text-muted' : ''}
-                            ${!entry.isLast && !entry.isNext && entry.value === selection.date ? 'rounded-1' : ''}
-                            `}
-                          style={{
-                            height: '15,83%',
-                            background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : !entry.isLast && !entry.isNext && entry.value === selection.date ? 'rgba(0,0,0,0.1)' : ''}`,
-                          }}
-                          key={colIndex}
-                        >
-                          {entry.value}
-                        </td>)
-                    })
-                  }
-                </tr>
-              )
-            })
-          }
-        </tbody>
-      </Table>
-    )
-  }
 
   const handleYearBack = () => {
     if (selection.year > 1970) {
@@ -188,7 +143,7 @@ const DatePicker = (props) => {
         <img src={arrowRight} className="ms-3" style={{ cursor: 'pointer' }} onClick={handleMonthNext} />
       </Container>
       <Container className="d-flex flex-column justify-content-start align-items-center flex-fill">
-        <Dates />
+        <Dates {...{ locale, selection, data }} />
       </Container>
     </Container>
   )
