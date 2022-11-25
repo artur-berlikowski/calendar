@@ -44,6 +44,7 @@ const Dates = (props) => {
                         style={{
                           height: '15,83%',
                           background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : !entry.isLast && !entry.isNext && entry.value === selection.date ? 'rgba(0,0,0,0.1)' : ''}`,
+                          cursor: `${!entry.isLast && !entry.isNext ? 'pointer' : 'default'}`
                         }}
                         key={colIndex}
                       >
