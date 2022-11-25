@@ -54,7 +54,23 @@ const DatePicker = (props) => {
                 <tr key={rowIndex} className="m-0 p-0">
                   {
                     row.map((entry, colIndex) => {
-                      return <td className={`border border-0 text-center align-middle m-0 p-0 ${entry.isLast || entry.isNext ? 'text-muted' : ''}`} style={{ height: '15,83%', background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : 'none'}` }} key={colIndex}>{entry.value}</td>
+                      return (
+                        <td
+                          className={`
+                          border-0 
+                            text-center
+                            align-middle
+                            ${entry.isLast || entry.isNext ? 'text-muted' : ''}
+                            ${!entry.isLast && !entry.isNext && entry.value === selection.date ? 'rounded-1' : ''}
+                            `}
+                          style={{
+                            height: '15,83%',
+                            background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : !entry.isLast && !entry.isNext && entry.value === selection.date ? 'rgba(0,0,0,0.1)' : ''}`,
+                          }}
+                          key={colIndex}
+                        >
+                          {entry.value}
+                        </td>)
                     })
                   }
                 </tr>
