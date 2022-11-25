@@ -15,7 +15,7 @@ const Dates = (props) => {
 
   return (
     <Table className="h-100">
-      <thead className="border-0 m-0 p-0">
+      <thead className="border-0">
         <tr>
           <th className="border-0" style={{ width: '12.5%', height: '5%' }}></th>
           {
@@ -25,11 +25,11 @@ const Dates = (props) => {
           }
         </tr>
       </thead>
-      <tbody className="border border-0 m-0 p-0">
+      <tbody className="border-0">
         {
           data && data.map((row, rowIndex) => {
             return (
-              <tr key={rowIndex} className="m-0 p-0">
+              <tr key={rowIndex}>
                 {
                   row.map((entry, colIndex) => {
                     return (
