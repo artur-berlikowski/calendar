@@ -6,8 +6,7 @@ import {
 
 //Bootstrap
 import {
-  Container,
-  Table
+  Container
 } from 'react-bootstrap'
 
 //Components
@@ -121,13 +120,6 @@ const DatePicker = (props) => {
     let days = Math.floor((date - start) / (24 * 60 * 60 * 1000))
 
     return Math.ceil(days / 7)
-  }
-
-  const getDayNames = () => {
-    let days = [1, 2, 3, 4, 5, 6, 7].map(day => {
-      return new Date(2017, 4, day).toLocaleDateString(locale, { weekday: 'short' })
-    })
-    return days
   }
 
   return (
