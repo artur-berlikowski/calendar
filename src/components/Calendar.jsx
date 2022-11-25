@@ -6,9 +6,7 @@ import {
 
 //Bootstrap
 import {
-  Container,
-  Row,
-  Col
+  Container
 } from 'react-bootstrap'
 
 //Components
@@ -20,7 +18,6 @@ const Calendar = (props) => {
   const [currentWeek, setCurrentWeek] = useState()
   const [currentDate, setCurrentDate] = useState()
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }))
-  const [selectedMonth, setSelectedMonth] = useState(new Date().toLocaleString(locale, { month: 'long' }))
   const [selection, setSelection] = useState({
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
@@ -38,14 +35,6 @@ const Calendar = (props) => {
     return () => clearInterval(time)
   }, [])
 
-  const handlePreviousMonth = () => {
-
-  }
-
-  const handleNextMonth = () => {
-
-  }
-
   const getCurrentWeek = () => {
     let date = new Date()
     let start = new Date(date.getFullYear(), 0, 1)
@@ -59,31 +48,6 @@ const Calendar = (props) => {
     let date = new Date()
 
     return date.toLocaleDateString(locale, options)
-  }
-
-  const getDaysInMonth = (year, month) => {
-    return new Date(year, month, 0).getDate()
-  }
-
-  const Dates = () => {
-    let today = new Date()
-    let date = new Date(today.getFullYear(), 11, 31)
-    let maxDays = getDaysInMonth(selection.year, selection.month)
-    let startsOn = new Date(selection.year, selection.month, 1).getDay()
-    let dayNames = getDayNames(locale, 'short')
-
-    return (
-      <Container className="d-flex flex-column justify-content-even flex-fill p-2">
-        <Row>
-          <Col></Col>
-          {
-            dayNames.map((day) => {
-              return <Col className="text-capitalize">{day}</Col>
-            })
-          }
-        </Row>
-      </Container>
-    )
   }
 
   return (
