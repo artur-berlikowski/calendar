@@ -135,7 +135,7 @@ const DatePicker = (props) => {
         <img src={arrowRight} className="ms-3" style={{ cursor: 'pointer' }} onClick={handleMonthNext} />
       </Container>
       <Container className="d-flex flex-column justify-content-start align-items-center flex-fill">
-        <Dates {...{ locale, selection, data }} />
+        <Dates {...{ locale, selection, setSelection, data }} />
       </Container>
     </Container>
   )
