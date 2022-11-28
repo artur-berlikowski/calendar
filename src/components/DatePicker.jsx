@@ -96,10 +96,11 @@ const DatePicker = (props) => {
       for (let col = 0; col < 7; col++) {
         let nextMonth = count - daysInCurrentMonth - (startsOn - 2) > 0
         let dayInNextMonth = count - daysInCurrentMonth - (startsOn - 2)
+        let isLast = count < startsOn - 1
         newRow.push({
-          value: count < startsOn - 1 ? daysInLastMonth - (startsOn - 2 - count) : nextMonth ? dayInNextMonth : count - (startsOn - 2),
+          value: isLast ? daysInLastMonth - (startsOn - 2 - count) : nextMonth ? dayInNextMonth : count - (startsOn - 2),
           isWeek: false,
-          isLast: count < startsOn - 1,
+          isLast: isLast,
           isNext: nextMonth
         })
         count++
