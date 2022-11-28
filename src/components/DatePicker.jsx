@@ -77,7 +77,7 @@ const DatePicker = (props) => {
   }
 
   const generateDatesArray = async (year, month) => {
-    let daysInCurrentMonth = new Date(year, month + 1, 0).getDate()
+    let daysInCurrentMonth = new Date(month === 12 ? year + 1 : year, month === 12 ? 1 : month + 1, 0).getDate()
     let daysInLastMonth = new Date(month === 0 ? year - 1 : year, month === 0 ? 12 : month, 0).getDate()
     let startsOn = new Date(year, month, 1).getDay()
     let rows = []
@@ -85,9 +85,9 @@ const DatePicker = (props) => {
 
     for (let row = 0; row < 6; row++) {
       let notStarted = count < startsOn - 1
-      let lastMonth = month - 1
+      let lastMonth = month === 0 ? 11 : month - 1
       let newRow = [{
-        value: getWeekByDate(new Date(year, notStarted ? lastMonth : month, notStarted ? daysInLastMonth - (startsOn - 2) : count - (startsOn - 2))),
+        value: getWeekByDate(new Date(notStarted && lastMonth === 11 ? year - 1 : year, notStarted ? lastMonth : month, notStarted ? daysInLastMonth - (startsOn - 2) : count + 1)),
         isWeek: true,
         isLast: false,
         isNext: false
