@@ -124,12 +124,12 @@ const DatePicker = (props) => {
 
   return (
     <Container fluid className="d-flex flex-column flex-fill justify-content-start align-items-center">
-      <Container fluid className="d-flex flex-row justify-content-center align-items-center m-0 px-2 py-1">
+      <Container fluid className="d-flex flex-row justify-content-between align-items-center m-0 px-2 py-1">
         <img src={arrowLeft} className="me-3" style={{ cursor: 'pointer' }} onClick={handleYearBack} />
         <div id="selected_month" className="text-capitalize">{selection.year}</div>
         <img src={arrowRight} className="ms-3" style={{ cursor: 'pointer' }} onClick={handleYearNext} />
       </Container>
-      <Container fluid className="d-flex flex-row justify-content-center align-items-center m-0 px-2 py-1">
+      <Container fluid className="d-flex flex-row justify-content-between align-items-center m-0 px-2 py-1">
         <img src={arrowLeft} className="me-3" style={{ cursor: 'pointer' }} onClick={handleMonthBack} />
         <div id="selected_month" className="text-capitalize">{new Date(selection.year, selection.month, selection.date).toLocaleDateString(locale, { month: 'long' })}</div>
         <img src={arrowRight} className="ms-3" style={{ cursor: 'pointer' }} onClick={handleMonthNext} />
