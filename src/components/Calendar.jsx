@@ -32,6 +32,12 @@ const Calendar = (props) => {
     localeDateString: new Date().toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
   })
 
+  const [selection, setSelection] = useState({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(),
+    date: new Date().getDate()
+  })
+
   useEffect(() => {
     const time = setInterval(() => {
       setToday({
@@ -50,7 +56,7 @@ const Calendar = (props) => {
         <div id="today" className="text-capitalize">{today.localeDateString}</div>
         <div id="time">{today.time}</div>
       </Container>
-      <DatePicker {...{ locale }} />
+      <DatePicker {...{ locale, selection, setSelection }} />
     </Container>
   )
 }

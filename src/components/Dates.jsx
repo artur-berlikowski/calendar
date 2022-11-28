@@ -68,7 +68,6 @@ const Dates = (props) => {
                             text-center
                             align-middle
                             ${entry.isLast || entry.isNext ? 'text-muted' : ''}
-                            ${!entry.isLast && !entry.isNext && entry.value === selection.date ? 'rounded-1' : ''}
                             `}
                         style={{
                           height: '15,83%',

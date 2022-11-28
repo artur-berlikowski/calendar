@@ -17,13 +17,7 @@ import arrowLeft from '../assets/image/arrow_left.png'
 import arrowRight from '../assets/image/arrow_right.png'
 
 const DatePicker = (props) => {
-  let { locale } = props
-
-  const [selection, setSelection] = useState({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth(),
-    date: new Date().getDate()
-  })
+  let { locale, selection, setSelection } = props
 
   const [data, setData] = useState([])
 
