@@ -35,6 +35,7 @@ const Calendar = (props) => {
   const [selection, setSelection] = useState({
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
+    week: getCurrentWeek(),
     date: new Date().getDate()
   })
 

@@ -87,7 +87,7 @@ const DatePicker = (props) => {
       let notStarted = count < startsOn - 1
       let lastMonth = month - 1
       let newRow = [{
-        value: getWeekFromDate(new Date(year, notStarted ? lastMonth : month, notStarted ? daysInLastMonth - (startsOn - 2) : count - (startsOn - 2))),
+        value: getWeekByDate(new Date(year, notStarted ? lastMonth : month, notStarted ? daysInLastMonth - (startsOn - 2) : count - (startsOn - 2))),
         isWeek: true,
         isLast: false,
         isNext: false
@@ -109,7 +109,7 @@ const DatePicker = (props) => {
     return rows
   }
 
-  const getWeekFromDate = (date) => {
+  const getWeekByDate = (date) => {
     let start = new Date(date.getFullYear(), 0, 1)
     let days = Math.floor((date - start) / (24 * 60 * 60 * 1000))
 
