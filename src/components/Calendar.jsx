@@ -51,7 +51,7 @@ const Calendar = (props) => {
 
   return (
     <Container fluid id="calendar" className="d-flex flex-column justify-content-start align-items-start w-100 h-100 m-0 p-2">
-      <Container fluid className="d-flex flex-row justify-content-between fw-bold g-0">
+      <Container fluid className="d-flex flex-row justify-content-between fw-bold mb-2">
         <div id="current_week">{today.week}</div>
         <div id="today" className="text-capitalize">{today.localeDateString}</div>
         <div id="time">{today.time}</div>
