@@ -15,21 +15,21 @@ const Dates = (props) => {
     if (isCurrent) {
       setSelection({
         ...selection,
-        date: parseInt(id.replace('current_', ''))
+        day: parseInt(id.replace('current_', ''))
       })
     } else if (isLast) {
       setSelection({
         ...selection,
         year: selection.month === 0 ? selection.year - 1 : selection.year,
         month: selection.month === 0 ? 11 : selection.month - 1,
-        date: parseInt(id.replace('last_', ''))
+        day: parseInt(id.replace('last_', ''))
       })
     } else if (isNext) {
       setSelection({
         ...selection,
         year: selection.month === 11 ? selection.year + 1 : selection.year,
         month: selection.month === 11 ? 0 : selection.month + 1,
-        date: parseInt(id.replace('next_', ''))
+        day: parseInt(id.replace('next_', ''))
       })
     }
   }
@@ -71,7 +71,7 @@ const Dates = (props) => {
                             `}
                         style={{
                           height: '15,83%',
-                          background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : !entry.isLast && !entry.isNext && entry.value === selection.date ? 'rgba(0,0,0,0.1)' : ''}`,
+                          background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : !entry.isLast && !entry.isNext && entry.value === selection.day ? 'rgba(0,0,0,0.1)' : ''}`,
                           cursor: 'pointer'
                         }}
                         key={colIndex}

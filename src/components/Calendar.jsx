@@ -36,7 +36,7 @@ const Calendar = (props) => {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
     week: getCurrentWeek(),
-    date: new Date().getDate()
+    day: new Date().getDate()
   })
 
   useEffect(() => {
