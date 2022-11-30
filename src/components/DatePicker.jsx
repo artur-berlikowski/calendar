@@ -47,7 +47,7 @@ const DatePicker = (props) => {
   }
 
   const handleMonthBack = () => {
-    if (selection.year > 1970 && selection.month > 0) {
+    if (selection.year > 1970) {
       if (selection.month > 0) {
         setSelection({
           ...selection,
