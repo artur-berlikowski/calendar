@@ -3,6 +3,9 @@ import {
   Table
 } from 'react-bootstrap'
 
+//Component
+import Cell from './Cell'
+
 const Dates = (props) => {
   let { locale, selection, setSelection, data } = props
 
@@ -59,26 +62,19 @@ const Dates = (props) => {
             return (
               <tr key={rowIndex}>
                 {
-                  row.map((entry, colIndex) => {
-                    return (
-                      <td
-                        id={`${(entry.isLast ? 'last_' : '') + (entry.isNext ? 'next_' : '') + (!entry.isLast && !entry.isNext ? 'current_' : '') + entry.value}`}
-                        className={`
-                          border-0 
-                            text-center
-                            align-middle
-                            ${entry.isLast || entry.isNext ? 'text-muted' : ''}
-                            `}
-                        style={{
-                          height: '15,83%',
-                          background: `${entry.isWeek ? 'rgba(0,0,0,0.1)' : !entry.isLast && !entry.isNext && entry.value === selection.day ? 'rgba(0,0,0,0.1)' : ''}`,
-                          cursor: 'pointer'
-                        }}
-                        key={colIndex}
-                        onClick={handleMakeSelection}
-                      >
-                        {entry.value}
-                      </td>)
+                  row.map((entry, index) => {
+                    let year = entry.year
+                    let month = entry.month
+                    let week = entry.week
+                    let day = entry.day
+                    let isWeek = entry.isWeek
+                    let isLast = entry.isLast
+                    let isNext = entry.isNext
+                    let id = (isLast ? 'last_' : '') + (isNext ? 'next_' : '') + (!isLast && !isNext ? 'current_' : '') + day
+                    let mute = isLast || isNext
+                    let highlight = isWeek || !isLast && !isNext && day === selection.day + 1
+
+                    return <Cell key={index} {...{ id, year, month, week, day, mute, highlight, isWeek }} />
                   })
                 }
               </tr>

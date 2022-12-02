@@ -47,63 +47,91 @@ const DatePicker = (props) => {
   }
 
   const handleMonthBack = () => {
-    if (selection.year > 1970) {
-      if (selection.month > 0) {
-        setSelection({
-          ...selection,
-          month: selection.month - 1
-        })
+    let year = selection.year
+    let month = selection.month
+    let week = selection.week
+    let day = selection.day
+
+    if (year >= 1970) {
+      let lastDayOfLastMonth = new Date(year, month, 0).getDate()
+      if (month > 0) {
+        month--
       } else {
-        setSelection({
-          ...selection,
-          year: selection.year - 1,
-          month: 11
-        })
+        year--
+        month = 11
       }
+      week = getWeekByDate(new Date(year, month, lastDayOfLastMonth))
+
+      setSelection({
+        ...selection,
+        year: year,
+        month: month,
+        week: week,
+        day: lastDayOfLastMonth
+      })
     }
   }
 
   const handleMonthNext = () => {
-    if (selection.month < 11) {
+    let year = selection.year
+    let month = selection.month
+    let week = selection.week
+    let day = selection.day
+
+    if (year > 1970) {
+      if (month < 11) {
+        month++
+      } else {
+        year++
+        month = 0
+      }
+      week = getWeekByDate(new Date(year, month, 1))
+      day = 1
+
       setSelection({
         ...selection,
-        month: selection.month + 1
-      })
-    } else {
-      setSelection({
-        ...selection,
-        year: selection.year + 1,
-        month: 0
+        year: year,
+        month: month,
+        week: week,
+        day: day
       })
     }
   }
 
   const generateDatesArray = async (year, month) => {
-    let daysInCurrentMonth = new Date(month === 12 ? year + 1 : year, month === 12 ? 1 : month + 1, 0).getDate()
-    let daysInLastMonth = new Date(month === 0 ? year - 1 : year, month === 0 ? 12 : month, 0).getDate()
-    let startsOn = new Date(year, month, 1).getDay()
+    console.log(year, month, selection.week, selection.day)
+    let daysInCurrentMonth = new Date(month === 11 ? year + 1 : year, month === 11 ? 0 : month + 1, 0).getDate()
+    let daysInLastMonth = new Date(year, month, 0).getDate()
+    let startsOn = new Date(year, month, 0).getDay()
     let rows = []
     let count = 0
 
     for (let row = 0; row < 6; row++) {
-      let notStarted = count < startsOn - 1
+      let notStarted = count < startsOn
       let lastMonth = month === 0 ? 11 : month - 1
       let newRow = [{
-        value: getWeekByDate(new Date(notStarted && lastMonth === 11 ? year - 1 : year, notStarted ? lastMonth : month, notStarted ? daysInLastMonth - (startsOn - 2) : count + 1)),
+        year: selection.year,
+        month: selection.month,
+        week: getWeekByDate(new Date(notStarted && lastMonth === 11 ? year - 1 : year, notStarted ? lastMonth : month, notStarted ? daysInLastMonth - (startsOn - 2) : count + 1)),
+        day: selection.day,
         isWeek: true,
         isLast: false,
         isNext: false
       }]
 
       for (let col = 0; col < 7; col++) {
-        let nextMonth = count - daysInCurrentMonth - (startsOn - 2) > 0
-        let dayInNextMonth = count - daysInCurrentMonth - (startsOn - 2)
-        let isLast = count < startsOn - 1
+        let dayInNextMonth = count - (daysInCurrentMonth - 1) - startsOn
+        let isLast = count < startsOn
+        let isNext = count > startsOn + daysInCurrentMonth - 1
+        let day = isLast ? (daysInLastMonth - (startsOn - count)) + 1 : isNext ? dayInNextMonth : (count - startsOn) + 1
         newRow.push({
-          value: isLast ? daysInLastMonth - (startsOn - 2 - count) : nextMonth ? dayInNextMonth : count - (startsOn - 2),
+          year: year,
+          month: month,
+          week: getWeekByDate(new Date(year, month, day)),
+          day: day,
           isWeek: false,
           isLast: isLast,
-          isNext: nextMonth
+          isNext: isNext
         })
         count++
       }
@@ -113,10 +141,10 @@ const DatePicker = (props) => {
   }
 
   const getWeekByDate = (date) => {
-    let start = new Date(date.getFullYear(), 0, 1)
-    let days = Math.floor((date - start) / (24 * 60 * 60 * 1000))
-
-    return Math.ceil(days / 7)
+    var dayNum = date.getUTCDay() || 7;
+    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+    var yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+    return Math.ceil((((date - yearStart) / 86400000) + 1) / 7)
   }
 
   return (
