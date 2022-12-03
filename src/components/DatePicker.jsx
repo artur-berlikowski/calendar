@@ -47,10 +47,7 @@ const DatePicker = (props) => {
   }
 
   const handleMonthBack = () => {
-    let year = selection.year
-    let month = selection.month
-    let week = selection.week
-    let day = selection.day
+    let { year, month, week, day } = selection
 
     if (year >= 1970) {
       let lastDayOfLastMonth = new Date(year, month, 0).getDate()
@@ -73,10 +70,7 @@ const DatePicker = (props) => {
   }
 
   const handleMonthNext = () => {
-    let year = selection.year
-    let month = selection.month
-    let week = selection.week
-    let day = selection.day
+    let { year, month, week, day } = selection
 
     if (year > 1970) {
       if (month < 11) {
@@ -99,7 +93,6 @@ const DatePicker = (props) => {
   }
 
   const generateDatesArray = async (year, month) => {
-    console.log(year, month, selection.week, selection.day)
     let daysInCurrentMonth = new Date(month === 11 ? year + 1 : year, month === 11 ? 0 : month + 1, 0).getDate()
     let daysInLastMonth = new Date(year, month, 0).getDate()
     let startsOn = new Date(year, month, 0).getDay()
@@ -116,22 +109,37 @@ const DatePicker = (props) => {
         day: selection.day,
         isWeek: true,
         isLast: false,
-        isNext: false
+        isNext: false,
+        isCurrent: false
       }]
 
       for (let col = 0; col < 7; col++) {
-        let dayInNextMonth = count - (daysInCurrentMonth - 1) - startsOn
+        let dayInNextMonth = count - (daysInCurrentMonth) - startsOn
         let isLast = count < startsOn
         let isNext = count > startsOn + daysInCurrentMonth - 1
-        let day = isLast ? (daysInLastMonth - (startsOn - count)) + 1 : isNext ? dayInNextMonth : (count - startsOn) + 1
+        let day = (isLast ? (daysInLastMonth - (startsOn - count)) : isNext ? dayInNextMonth : (count - startsOn)) + 1
+        let newYear = isLast && month === 0 ? year - 1 : isNext && month === 11 ? year + 1 : year
+        let newMonth = (month) => {
+          if (isLast) {
+            if (month === 0) return 11
+            else return month - 1
+          }
+          if (isNext) {
+            if (month === 11) return 0
+            else return month + 1
+          }
+          return month
+        }
         newRow.push({
-          year: year,
-          month: month,
+          year: newYear,
+          month: newMonth(month),
           week: getWeekByDate(new Date(year, month, day)),
           day: day,
+          value: day + 1,
           isWeek: false,
           isLast: isLast,
-          isNext: isNext
+          isNext: isNext,
+          isCurrent: !isLast && !isNext
         })
         count++
       }
