@@ -9,7 +9,7 @@ import Cell from './Cell'
 const Dates = (props) => {
   let { locale, selection, setSelection, dates } = props
 
-  const handleOnSelect = (dates) => {
+  const handleOnClick = (dates) => {
     let { year, month, week, day } = dates
 
     setSelection({
@@ -51,7 +51,7 @@ const Dates = (props) => {
                     let mute = isLast || isNext
                     let highlight = isWeek || !isLast && !isNext && day === selection.day
 
-                    return <Cell key={cellIndex} parentCallback={handleOnSelect} {...{ year, month, week, day, mute, highlight, isWeek, isLast, isCurrent, isNext }} />
+                    return <Cell key={cellIndex} parentCallback={handleOnClick} {...{ year, month, week, day, mute, highlight, isWeek, isLast, isCurrent, isNext }} />
                   })
                 }
               </tr>
