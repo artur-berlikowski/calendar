@@ -30,7 +30,7 @@ const DatePicker = (props) => {
     getData()
   }, [selection])
 
-  const handleYearBack = () => {
+  const handleYearLast = () => {
     if (selection.year > 1970) {
       setSelection({
         ...selection,
@@ -46,7 +46,7 @@ const DatePicker = (props) => {
     })
   }
 
-  const handleMonthBack = () => {
+  const handleMonthLast = () => {
     let { year, month, week } = selection
 
     if (year >= 1970) {
@@ -70,7 +70,7 @@ const DatePicker = (props) => {
   }
 
   const handleMonthNext = () => {
-    let { year, month, week, day } = selection
+    let { year, month } = selection
 
     if (year > 1970) {
       if (month < 11) {
@@ -79,8 +79,9 @@ const DatePicker = (props) => {
         year++
         month = 0
       }
-      week = getWeekByDate(new Date(year, month, 1))
-      day = 1
+
+      let day = 1
+      let week = getWeekByDate(new Date(year, month, day))
 
       setSelection({
         ...selection,
@@ -151,13 +152,13 @@ const DatePicker = (props) => {
   return (
     <Container fluid className="d-flex flex-column flex-fill justify-content-start align-items-center g-0">
       <Container fluid className="d-flex flex-row justify-content-between align-items-center g-0 py-1">
-        <img src={arrowLeft} style={{ cursor: 'pointer' }} onClick={handleYearBack} />
-        <div id="selected_month" className="text-capitalize">{selection.year}</div>
+        <img src={arrowLeft} style={{ cursor: 'pointer' }} onClick={handleYearLast} />
+        <div className="text-capitalize">{selection.year}</div>
         <img src={arrowRight} style={{ cursor: 'pointer' }} onClick={handleYearNext} />
       </Container>
       <Container fluid className="d-flex flex-row justify-content-between align-items-center g-0 py-1">
-        <img src={arrowLeft} style={{ cursor: 'pointer' }} onClick={handleMonthBack} />
-        <div id="selected_month" className="text-capitalize">{new Date(selection.year, selection.month, selection.day).toLocaleDateString(locale, { month: 'long' })}</div>
+        <img src={arrowLeft} style={{ cursor: 'pointer' }} onClick={handleMonthLast} />
+        <div className="text-capitalize">{new Date(selection.year, selection.month, selection.day).toLocaleDateString(locale, { month: 'long' })}</div>
         <img src={arrowRight} style={{ cursor: 'pointer' }} onClick={handleMonthNext} />
       </Container>
       <Container className="d-flex flex-column justify-content-start align-items-center flex-fill">
