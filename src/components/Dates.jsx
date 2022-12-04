@@ -30,9 +30,9 @@ const Dates = (props) => {
 
   return (
     <Table className="h-100">
-      <thead className="border-0">
+      <thead>
         <tr>
-          <th className="border-0" style={{ width: '12.5%', height: '5%' }}></th>
+          <th style={{ width: '12.5%', height: '5%' }}></th>
           {
             getDayNames().map((day, index) => {
               return <th key={index} className="text-center text-capitalize border-0" style={{ width: '12.5%' }}>{day}</th>
@@ -40,19 +40,18 @@ const Dates = (props) => {
           }
         </tr>
       </thead>
-      <tbody className="border-0">
+      <tbody>
         {
           dates && dates.map((row, rowIndex) => {
             return (
               <tr key={rowIndex}>
                 {
-                  row.map((entry, index) => {
+                  row.map((entry, cellIndex) => {
                     let { year, month, week, day, isWeek, isLast, isNext, isCurrent } = entry
-
                     let mute = isLast || isNext
                     let highlight = isWeek || !isLast && !isNext && day === selection.day
 
-                    return <Cell key={index} parentCallback={handleOnSelect} {...{ year, month, week, day, mute, highlight, isWeek, isLast, isCurrent, isNext }} />
+                    return <Cell key={cellIndex} parentCallback={handleOnSelect} {...{ year, month, week, day, mute, highlight, isWeek, isLast, isCurrent, isNext }} />
                   })
                 }
               </tr>
