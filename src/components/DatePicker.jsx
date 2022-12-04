@@ -19,12 +19,12 @@ import arrowRight from '../assets/image/arrow_right.png'
 const DatePicker = (props) => {
   let { locale, selection, setSelection } = props
 
-  const [data, setData] = useState([])
+  const [dates, setDates] = useState([])
 
   useEffect(() => {
     const getData = async () => {
-      let data = await generateDatesArray(selection.year, selection.month)
-      setData(data)
+      let dates = await generateDatesArray(selection.year, selection.month)
+      setDates(dates)
     }
 
     getData()
@@ -162,7 +162,7 @@ const DatePicker = (props) => {
         <img src={arrowRight} style={{ cursor: 'pointer' }} onClick={handleMonthNext} />
       </Container>
       <Container className="d-flex flex-column justify-content-start align-items-center flex-fill">
-        <Dates {...{ locale, selection, setSelection, data }} />
+        <Dates {...{ locale, selection, setSelection, dates }} />
       </Container>
     </Container>
   )

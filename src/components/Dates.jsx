@@ -7,10 +7,10 @@ import {
 import Cell from './Cell'
 
 const Dates = (props) => {
-  let { locale, selection, setSelection, data } = props
+  let { locale, selection, setSelection, dates } = props
 
-  const handleOnSelect = (data) => {
-    let { year, month, week, day } = data
+  const handleOnSelect = (dates) => {
+    let { year, month, week, day } = dates
 
     setSelection({
       ...selection,
@@ -42,14 +42,13 @@ const Dates = (props) => {
       </thead>
       <tbody className="border-0">
         {
-          data && data.map((row, rowIndex) => {
+          dates && dates.map((row, rowIndex) => {
             return (
               <tr key={rowIndex}>
                 {
                   row.map((entry, index) => {
                     let { year, month, week, day, isWeek, isLast, isNext, isCurrent } = entry
 
-                    let id = (isLast ? 'last_' : '') + (isNext ? 'next_' : '') + (!isLast && !isNext ? 'current_' : '') + day
                     let mute = isLast || isNext
                     let highlight = isWeek || !isLast && !isNext && day === selection.day
 
